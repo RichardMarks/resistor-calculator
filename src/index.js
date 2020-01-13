@@ -190,4 +190,12 @@ const App = () => {
   )
 }
 
-ReactDOM.render(<App />, document.getElementById('root'))
+const startApp = () => {
+  ReactDOM.render(<App />, document.getElementById('root'))
+}
+
+if (window.cordova) {
+  document.addEventListener('deviceready', startApp, false)
+} else {
+  startApp()
+}
