@@ -6,7 +6,6 @@ import { makeStyles } from '@material-ui/core/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import Typography from '@material-ui/core/Typography'
 import Container from '@material-ui/core/Container'
-import Grid from '@material-ui/core/Grid'
 import TextField from '@material-ui/core/TextField'
 import FormGroup from '@material-ui/core/FormGroup'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
@@ -93,100 +92,96 @@ const App = () => {
   return (
     <React.Fragment>
       <CssBaseline />
-      <Container maxWidth='md'>
-        <Grid container spacing={3}>
-          <Grid item xs={6}>
-            <Typography variant='h3' gutterBottom>Resistor Calculator</Typography>
-            <Typography variant='body1' component='p' gutterBottom>
-              Use this calculator to calculate the total resistance value of a set of resistors in series or in parallel.
-            </Typography>
-            <Typography variant='body2' component='p' gutterBottom>
-              Enter your resistor values (numbers only) separated by spaces or commas and click the calculate button to determine the total resistance.
-            </Typography>
-            <TextField
-              id='resistor-values-textarea'
-              label='Resistor Values'
-              placeholder='R1 R2 R3 ...'
-              rows={5}
-              multiline
-              onChange={onResistorValuesChange}
-              value={resistorValues}
-              variant='filled'
-              fullWidth
-              autoFocus
-            />
-            {
-              error
-                ? (
-                  <div>
-                    <Typography className={classes.error} variant='body1' gutterBottom>
-                      {error}
-                    </Typography>
-                  </div>
-                ) : null
-            }
-            <form className={classes.form} noValidate autoComplete='off'>
-              <FormGroup row>
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      checked={inSeries}
-                      onChange={onSeriesCheckboxChange}
-                      color='primary'
-                    />
-                  }
-                  label='Calculate total(R) in series'
-                />
-              </FormGroup>
+      <Container maxWidth='sm'>
+        <Typography variant='h4' align='center' gutterBottom>Resistor Calculator</Typography>
+        <Typography variant='body1' component='p' gutterBottom>
+          Use this calculator to calculate the total resistance value of a set of resistors in series or in parallel.
+        </Typography>
+        <Typography variant='body2' component='p' gutterBottom>
+          Enter your resistor values (numbers only) separated by spaces or commas and click the calculate button to determine the total resistance.
+        </Typography>
+        <TextField
+          id='resistor-values-textarea'
+          label='Resistor Values'
+          placeholder='R1 R2 R3 ...'
+          rows={5}
+          multiline
+          onChange={onResistorValuesChange}
+          value={resistorValues}
+          variant='filled'
+          fullWidth
+          autoFocus
+        />
+        {
+          error
+            ? (
               <div>
-                <Button
-                  color='secondary'
-                  className={classes.button}
-                  onClick={onClearClick}
-                  disabled={!resistorValues.length}
-                >
-                  Clear
-                </Button>
-                <Button
-                  variant='contained'
-                  color='primary'
-                  className={classes.button}
-                  onClick={onCalculateClick}
-                  disabled={!resistorValues.length}
-                >
-                  Calculate
-                </Button>
-              </div>
-            </form>
-          </Grid>
-          <Grid item xs={6}>
-            <Typography variant='h4' component='h2' gutterBottom>
-              Calculated Total Resistance:
-            </Typography>
-            <Paper className={classes.paper} elevation={3}>
-              <Typography variant='h6' component='p' gutterBottom>
-                Total(R) = {totalR}Ω (Ohm)
-              </Typography>
-            </Paper>
-            <Typography variant='h4' component='h2' gutterBottom>
-              Calculation Explained:
-            </Typography>
-            <Paper className={classes.paper} elevation={3}>
-              {!steps.length ? (
-                <Typography variant='h6' component='p' gutterBottom>
-                  No resistor values to examine...
+                <Typography className={classes.error} variant='body1' gutterBottom>
+                  {error}
                 </Typography>
-              ) : null}
-              {steps.map(step => {
-                return (
-                  <Typography key={step} variant='h6' component='p' gutterBottom>
-                    {step}
-                  </Typography>
-                )
-              })}
-            </Paper>
-          </Grid>
-        </Grid>
+              </div>
+            ) : null
+        }
+        <form className={classes.form} noValidate autoComplete='off'>
+          <FormGroup row>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={inSeries}
+                  onChange={onSeriesCheckboxChange}
+                  color='primary'
+                />
+              }
+              label='Calculate total(R) in series'
+            />
+          </FormGroup>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <Button
+              color='secondary'
+              className={classes.button}
+              onClick={onClearClick}
+              disabled={!resistorValues.length}
+              fullWidth
+            >
+              Clear
+            </Button>
+            <Button
+              variant='contained'
+              color='primary'
+              className={classes.button}
+              onClick={onCalculateClick}
+              disabled={!resistorValues.length}
+              fullWidth
+            >
+              Calculate
+            </Button>
+          </div>
+        </form>
+        <Typography variant='h6' component='h2' gutterBottom>
+          Calculated Total Resistance:
+        </Typography>
+        <Paper className={classes.paper} elevation={3}>
+          <Typography variant='h6' component='p' gutterBottom>
+            Total(R) = {totalR}Ω (Ohm)
+          </Typography>
+        </Paper>
+        <Typography variant='h6' component='h2' gutterBottom>
+          Calculation Explained:
+        </Typography>
+        <Paper className={classes.paper} elevation={3}>
+          {!steps.length ? (
+            <Typography variant='h6' component='p' gutterBottom>
+              No resistor values to examine...
+            </Typography>
+          ) : null}
+          {steps.map(step => {
+            return (
+              <Typography key={step} variant='h6' component='p' gutterBottom>
+                {step}
+              </Typography>
+            )
+          })}
+        </Paper>
         <Typography variant='subtitle2' gutterBottom>
           &copy; 2020, Richard Marks
         </Typography>
